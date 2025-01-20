@@ -1,0 +1,126 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+<!-- breadcrum -->
+<section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container">
+      </div>
+    </div>
+  </section>
+  <!-- //breadcrum -->
+  <!-- contact form -->
+  <section class="w3l-contacts-12" id="contact">
+      <div class="container py-5">
+          <div class="contacts12-main py-md-3">
+              <div class="header-section text-center">
+                  <h3 class="mb-md-5 mb-4">Class Allotment
+              </div>
+   <form method="post" class="">
+      <!-- remove form content in layout -->
+
+        {% csrf_token %}
+ 
+     <p>
+       <label for="id_department" class="form-inline label">Department:</label>
+       <select name="department" required="" id="id_department" class="custom-select">
+        <option value selected>&nbsp;&nbsp;&nbsp;Select Department</option>
+        {%for i in a%}
+     <option value="{{i.id}}">&nbsp;&nbsp;&nbsp;{{i.departmentname}}</option>
+     {%endfor%}
+   </select>
+     </p>
+   
+     <p>
+       <label for="id_semester" class="form-inline label">Semester:</label>
+       <select name="semester" required="" id="id_semester" class="custom-select">
+        <option value selected>&nbsp;&nbsp;&nbsp;Select Semester</option>
+        {%for i in b%}
+     <option value="{{i.id}}" data-id={{i.department.id}}>&nbsp;&nbsp;&nbsp;{{i.semestername}}</option>
+     {%endfor%}
+   </select>
+     </p>
+
+     <p>
+       <label for="id_subject" class="form-inline label">Subject:</label>
+       <select name="subject" required="" id="id_subject" class="custom-select">
+        <option value selected >&nbsp;&nbsp;&nbsp;Select Subject</option>
+        {%for i in c%}
+     <option value="{{i.id}}" data-id={{i.semester.id}} >&nbsp;&nbsp;&nbsp;{{i.name}}</option>
+     {%endfor%}
+   </select>
+     </p>
+     <p>
+       <label for="id_exam" class="form-inline label">Exam:</label>
+       <select name="exam" required="" id="id_exam" class="custom-select">
+        <option value selected>&nbsp;&nbsp;&nbsp;Select Exam</option>
+        {%for i in d%}
+     <!-- <option value="{{i.id}}">&nbsp;&nbsp;&nbsp;{{i.examname}}</option> -->
+     <option value="{{i.id}}" data-id={{i.subject.id}}>&nbsp;&nbsp;&nbsp;{{i.examname}}</option>
+     {%endfor%}
+   </select>
+     </p>
+   
+     <p>
+        <label for="id_classname" class="form-inline label">ClassRoom:</label>
+        <select name="classname" required="" id="id_classname" class="custom-select">
+          <option value selected>&nbsp;&nbsp;&nbsp;Select ClassRoom</option>
+          {%for i in e%}
+      <option value="{{i.id}}" data-strength="{{i.strength}}">&nbsp;&nbsp;&nbsp;{{i.classname}}</option>
+      {%endfor%}
+    </select>
+      </p>
+  
+     <!-- <p>
+        
+        <label for="id_name" class="form-inline label">Staff:</label>
+        <select name="staff" required="" id="id_name" class="custom-select">
+          <option value selected>&nbsp;&nbsp;&nbsp;Select Staff</option>
+
+          {%for i in f %}
+         
+      <option value="{{i.id}}">&nbsp;&nbsp;&nbsp;{{i.name}}</option>
+      {%endfor%}
+    </select>
+      </p> -->
+
+      <p>
+        <label for="id_strength" class="form-inline label">&nbsp;&nbsp;&nbsp;Room Capacity:</label>
+        <input type="text" name="strength" class="contact-input" style="width: 100%;height: 50px;" required="" id="id_strength" readonly>
+      </p>
+                
+     <div class="text-center">                
+        <input type="submit" class="btn-secondary btn theme-button" value="Submit" id="suballot">
+                     </div>
+                 </form>
+                  
+          </div>
+      </div>
+
+      <script>
+        $("#id_department").change(function(){
+            $("#id_semester").val('');
+            $("#id_semester").children('option').hide();
+            var id_department=$(this).val();
+            $("#id_semester").children("option[data-id="+id_department+"]").show();
+        })
+        $("#id_semester").change(function(){
+            $("#id_subject").val('');
+            $("#id_subject").children('option').hide();
+            var id_semester=$(this).val();
+            $("#id_subject").children("option[data-id="+id_semester+"]").show();
+        })
+        $("#id_subject").change(function(){
+            $("#id_exam").val('');
+            $("#id_exam").children('option').hide();
+            var id_subject=$(this).val();
+            $("#id_exam").children("option[data-id="+id_subject+"]").show();
+        })
+        $("#id_classname").change(function() {
+        var a = $(this).find(":selected");
+        var roomcapacity = a.data("strength"); 
+        $("#id_strength").val(roomcapacity);
+        });
+        </script>
+{%endblock%}
+

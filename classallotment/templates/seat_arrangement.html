@@ -1,0 +1,113 @@
+{%extends 'layout.html'%}
+{%block content%}
+<section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container">
+       
+      </div>
+    </div>
+  </section>
+  <section class="w3l-contacts-12" id="contact">
+      <div class="container py-5">
+          <div class="contacts12-main py-md-3">
+              <div class="header-section text-center">
+                  <h3 class="mb-md-5 mb-4">View ClassAllotment
+              </div>
+              <label for="" class=""></label>
+              <div class="container" style="display: flex;justify-content: flex-end; ">
+                <form action="" method="GET">
+                    <input type="text" name="search" placeholder="search">
+                    <button type="submit" href="/">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div><br>
+    
+            <table class="table table-hover table-bordered table-striped">
+                <thead class="thead-dark">
+            <tr>
+                {% if request.session.ut == 1 %}
+                <!-- <th>Student Name</th> -->
+                <th>Registration No</th>
+                {%endif%}
+                {% if request.session.ut == 2 %}
+                <!-- <th>Student Name</th> -->
+                <th>Registration No</th>
+                {%endif%}
+                <th>Exam Name</th>
+                <th>Subject Name</th>
+                <!-- <th>Staff Name</th> -->
+                <th>Exam Date</th>
+                <!-- <th>Start Time</th> -->
+                <th>ClassRoom</th>
+                <th>Seat Row</th>
+                <th>Seat Column</th>
+                <!-- <th>Seat</th> -->
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% if request.session.ut == 1 %}
+            {% for i in c %}
+                <tr>
+                    
+                    <td>
+                        {% for student in i.student.all %}
+                            {{ student.regno }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ i.exam }}</td>
+                    <td>{{ i.exam.subject }}</td>
+                    <!-- <td>{{ i.staff }}</td> -->
+                    <td>{{ i.exam.date }}</td>
+                    <!-- <td>{{ i.exam.start_time }}</td> -->
+                    <td>{{ i.classroom.classroom }}</td>
+                    <td>{{ i.row}}</td>
+                    <td>{{ i.column}}</td>
+                </tr>
+            {% endfor %}
+            {%endif%}
+
+            {% if request.session.ut == 2 %}
+            {% for i in c %}
+                <tr>
+                    <!-- <td>
+                        {% for student in i.student.all %}
+                            {{ student.name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td> -->
+                    <td>
+                        {% for student in i.student.all %}
+                            {{ student.regno }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ i.exam }}</td>
+                    <td>{{ i.exam.subject }}</td>
+                    <!-- <td>{{ i.staff }}</td> -->
+                    <td>{{ i.exam.date }}</td>
+                    <!-- <td>{{ i.exam.start_time }}</td> -->
+                    <td>{{ i.classroom.classroom }}</td>
+                    <td>{{ i.row}}</td>
+                    <td>{{ i.column}}</td>
+                </tr>
+            {% endfor %}
+            {%endif%}
+
+            {% if request.session.ut == 3 %}
+            {% for i in a %}
+                <tr>
+                    <td>{{ i.exam }}</td>
+                    <td>{{ i.exam.subject }}</td>
+                    <td>{{ i.exam.date }}</td>
+                    <!-- <td>{{ i.exam.start_time }}</td> -->
+                    <td>{{ i.classroom.classroom }}</td>
+                    <td>{{ i.row}}</td>
+                    <td>{{ i.column}}</td>
+                </tr>
+            {% endfor %}
+            {%endif%}
+        </tbody>
+    </table>
+</div>
+</div>
+{%endblock%}

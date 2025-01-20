@@ -1,0 +1,115 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+<!-- breadcrum -->
+<section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container">
+      </div>
+    </div>
+  </section>
+  <!-- //breadcrum -->
+  <!-- contact form -->
+  <section class="w3l-contacts-12" id="contact">
+      <div class="container py-5">
+          <div class="contacts12-main py-md-3">
+              <div class="header-section text-center">
+                  <h3 class="mb-md-5 mb-4">Edit Exam
+              </div>
+                
+<form method="post" class="" enctype="multipart/form-data">
+  <!-- remove form content in layout -->
+    {%csrf_token%}
+
+      <p>
+       <label for="id_examname" class="form-inline label">Exam Name:</label>
+       <input type="text" name="examname" class="contact-input" maxlength="50" required="" id="id_exam" value="{{a.examname}}">
+     </p>
+                            
+     <p>
+       <label for="id_department" class="form-inline label">Department:</label>
+       <select name="department" required="" id="id_department" class="custom-select">
+        {%for i in b%}
+     <option value="{{i.id}}" >&nbsp;&nbsp;{{i.departmentname}}</option>
+     {%endfor%}
+   </select>
+     </p><br>
+   
+     <p>
+       <label for="id_semester" class="form-inline label">Semester:</label>
+       <select name="semester" required="" id="id_semester" class="custom-select">
+        {%for i in c%}
+     <option value="{{i.id}}" data-id={{i.department.id}}>&nbsp;&nbsp;{{i.semestername}}</option>
+     {%endfor%}
+    </select>
+     </p><br>
+
+    <p>
+      <label for="id_subject" class="form-inline label">Subject:</label>
+      <select name="subject" required="" id="id_subject" class="custom-select">
+        {%for i in d%}
+      <option value="{{i.id}}" data-id={{i.semester.id}}>&nbsp;&nbsp;{{i.name}}</option>
+      {%endfor%}
+      </select>
+    </p><br>
+   
+    <p>
+      <label for="id_date" class="form-inline label">Date:</label>
+      <input type="date" name="date" class="contact-input" required="" id="id_date" value="{{a.date|date:'Y-m-d'}}">
+  </p>
+  
+  <p>
+      <label for="id_start_time" class="form-inline label">Start time:</label>
+      <input type="time" name="start_time" class="contact-input" required="" id="id_start_time" value="{{a.start_time|date:'H:i'}}">
+  </p>
+  
+  <p>
+      <label for="id_end_time" class="form-inline label">End time:</label>
+      <input type="time" name="end_time" class="contact-input" required="" id="id_end_time" value="{{a.end_time|date:'H:i'}}">
+  </p>
+                     
+    <div class="text-center">           
+      <input type="submit" class="btn-secondary btn theme-button" value="Submit">
+    </div>
+</form>
+                  
+  </div>
+  </div>
+
+  <script>
+           
+           
+    $(document).ready(function(){
+        var currentDate = new Date().toISOString().split('T')[0];
+        $('input[type="date"]').attr('min', currentDate);
+        
+        var dep = "{{ a.department.id }}";
+        var sem = "{{ a.semester.id }}";
+        var sub = "{{ a.subject.id }}";
+        $('#id_department').val(dep);
+        $("#id_semester").val(sem);
+        var c = $("#id_subject").val(sub);
+        $("#id_semester option").hide();
+        $("#id_semester option[data-id=" + dep + "]").show();
+        $("#id_subject option").hide();
+        $("#id_subject option[data-id=" + sem + "]").show();
+
+
+      $("#id_department").change(function(){
+          $("#id_semester").val('');
+          $("#id_semester option").hide();
+          var id_department = $(this).val();
+          $("#id_semester option[data-id=" + id_department + "]").show();
+      });
+
+        $("#id_semester").change(function(){
+              $("#id_subject").val('');
+              $("#id_subject option").hide();
+              var id_semester = $(this).val();
+              $("#id_subject option[data-id=" + id_semester + "]").show();
+        
+    });
+  });
+    </script>
+        
+{%endblock%}

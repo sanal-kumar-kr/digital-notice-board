@@ -1,0 +1,219 @@
+{%extends 'layout.html'%}
+{%block content%}
+<head>
+  {%if x%}
+  <script>
+    alert("Added Successfully")
+  </script>
+  {%endif%}
+
+    {%if d%}
+    <script>
+        alert("Subject already exists")
+    </script>
+    {%endif%}
+    
+      {%if e%}
+      <script>
+          alert("Exam already exists")
+      </script>
+      {%endif%}
+    
+      {%if m%}
+      <script>
+          alert("ClassAllotment already booked")
+      </script>
+      {%endif%}
+
+      {%if f%}
+      <script>
+          alert("Already alloted")
+      </script>
+      {%endif%}
+      
+      {%if g%}
+      <script>
+          alert("Already class alloted")
+      </script>
+      {%endif%}
+
+      {%if n%}
+      <script>
+          alert("Not Registered")
+      </script>
+      {%endif%}
+      
+      {%if nn%}
+      <script>
+          alert("Not Registered")
+      </script>
+      {%endif%}
+
+</head>
+
+ <!--  Main banner section -->
+ <section class="w3l-main-banner">
+   <div class="companies20-content">
+     <div class="companies-wrapper">
+       <div class="container">
+         <div class="banner-item">
+           <div class="banner-view">
+             <div class="banner-info">
+               <h3 class="banner-text">
+                 Learn Anytime, Anywhere.<br> Accelerate Your Future.
+               </h3>
+               <p class="my-4 mb-sm-5">We believe everyone has the capacity to be creative. Skill is a place where people develop their own potential.
+               </p><br>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </section>
+ 
+ 
+ {% if request.session.ut == None %}
+ <div class="w3l-services1 pt-5" id="services">
+  <div class="container pt-lg-3">
+    
+  </div>
+  
+  <div class="aboutbottom py-5">
+    <div class="container py-lg-3">
+      <div class="container">
+        <div class="text-left">
+          <a href="/notification_admin_view" class="btn btn-primary">View All Notifications</a>
+        </div>
+      </div>
+      <div class="bottomgrids row no-gutters">
+        {% for i in ab%}
+        <div class="col-lg-4 col-md-4 bottomgrid1 mt-lg-0 mt-0" style="overflow: auto;">
+          <span class="fa fa-bell"></span>
+          <h4><a class="service-title" href="">{{i.title}}</a></h4>
+        
+        <p class="service-text">{{i.description}}</p> 
+        </div>
+        {% endfor %}
+        
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endif%}
+
+ {% if request.session.ut == 1 %}
+ <div class="w3l-services1 pt-5" id="services">
+  <div class="container pt-lg-3">
+  </div>
+
+  <div class="aboutbottom py-5">
+    <div class="container py-lg-3">
+      <div class="container">
+        <div class="text-left">
+          <a href="/notification_admin_view" class="btn btn-primary">View All Notifications</a>
+        </div>
+      </div>
+      <div class="bottomgrids row no-gutters">
+        {% for i in de %}
+        <div class="col-lg-4 col-md-4 bottomgrid1 mt-lg-0 mt-0">
+          <span class="fa fa-bell"></span>
+          <h4><a class="service-title" href="">{{i.title}}</a></h4>
+          <p class="service-text">{{i.description}}</p>
+        </div>
+        {% endfor %}
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endif%}
+
+ {% if request.session.ut == 2 %}
+ <div class="w3l-services1 pt-5" id="services">
+  <div class="container pt-lg-3">
+    
+  </div>
+
+  <div class="aboutbottom py-5">
+    <div class="container py-lg-3">
+      <div class="container">
+        <div class="text-left">
+          <a href="/notification_admin_view" class="btn btn-primary">View All Notifications</a>
+        </div>
+      </div>
+      <div class="bottomgrids row no-gutters">
+        {% for i in bc%}
+        <div class="col-lg-4 col-md-4 bottomgrid1 mt-lg-0 mt-0">
+          <span class="fa fa-bell"></span>
+          <h4><a class="service-title" href="">{{i.title}}</a></h4>
+          <p class="service-text">{{i.description}}</p>
+        </div>
+        {% endfor %}
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endif%}
+
+ {% if request.session.ut == 3 %}
+ <div class="w3l-services1 pt-5" id="services">
+  <div class="container pt-lg-3">
+  </div>
+
+  <div class="aboutbottom py-5">
+    <div class="container py-lg-3">
+      <div class="container">
+        <div class="text-left">
+          <a href="/notification_admin_view" class="btn btn-primary">View All Notifications</a>
+        </div>
+      </div>
+      <div class="bottomgrids row no-gutters">
+        {% for i in cd%}
+        <div class="col-lg-4 col-md-4 bottomgrid1 mt-lg-0 mt-0">
+          <span class="fa fa-bell"></span>
+          <h4><a class="service-title" href="" style="color: red;">{{i.title}}</a></h4>
+          <p class="service-text">{{i.description}}</p>
+        </div>
+        {% endfor %}
+        <div class="clearfix"> </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endif%}
+
+<section class="w3l-services2">
+  <div class="feature-16-main py-5">
+    <div class="container py-lg-3">
+      <div class="header-section text-center">
+        <h3>Courses</h3>
+        <p class="mt-3 mb-5">We Providing Courses.</p>
+      </div>
+      <div class="features-grids">
+        <div class="row">
+          {% for i in ef %}
+          <div class="col-lg-4 col-md-6 featured-service">
+            <div class="feature-16-gd">
+              <div class="icon">
+                <span class="fa fa-book" aria-hidden="true"></span>
+              </div>
+              <div class="feature-16-gd-info">
+                <img src="{{i.departmentimage.url}}" alt="" width="300" height="150">
+                <h4 class="mt-4 mb-2"><a href="">{{i.departmentname}}</a></h4>
+                <p>{{i.description}}</p>
+              </div>
+            </div>
+          </div>
+          {%endfor%}  
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  
+</style>
+{%endblock%}

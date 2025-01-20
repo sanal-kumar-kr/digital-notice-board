@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    {% for i in a %}
+    <div class="card">
+        <br>
+        <h1 style="color: white;">{{i.username}}</h1>
+        <i class="fa fa-envelope" style="font-size:24px"></i>
+        <p class="title" style="color: white;"> Email: {{i.email}}</p><br>
+        <p><button><a href="/admin_reset_password" style="color: aliceblue;">Reset Password</a></button></p>
+    </div><br><br>
+    <style>
+        .card {
+            box-shadow: 20px 20px 20px rgb(44, 44, 44);
+            margin-top: 100px;
+            margin-left: 500px;
+            max-width: 350px;
+            height: 200px;
+            text-align: center;
+            font-family: serif;
+            border-radius: 6px;
+            background-image: linear-gradient( rgb(100, 98, 98) , rgb(146, 142, 142), rgb(53, 54, 53));
+        }
+        .card:hover {
+            transform: scale(1.2);
+            transition: 0.6s;
+        }
+        
+        .card:hover button {
+            display: inline-block;
+        }
+        h1 {
+            text-shadow: 1px 1px 3px;
+        }
+        .title {
+            color: rgb(7, 7, 7);
+            text-shadow: 2px 2px 5px rgb(2, 2, 2);
+            font-size: 18px;
+        }
+        button {
+          border: none;
+            outline: 0;
+            display: none;
+            padding: 4px;
+            color: rgb(218, 200, 200);
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background-color: #000;
+            text-align: center;
+            text-transform: capitalize;
+            cursor: pointer;
+            border-radius: 3px;
+            
+            font-size: 14px;
+        }
+        a {
+            font-size: 22px;
+            text-decoration: none;
+            color: white; /* Change text color to white */
+        }
+        button:hover, a:hover {
+            opacity: 0.7;
+        }
+    </style>
+    {% endfor %}
+</body>
+</html>
+{% endblock %}

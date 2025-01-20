@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .card1 {
+            box-shadow: 20px 20px 20px rgb(44, 44, 44);
+            margin-top: 50px;
+            margin-left: 450px;
+            max-width: 350px;
+            height: 400px;
+            text-align: center;
+            font-family: serif;
+            border-radius: 6px;
+            background-image: linear-gradient( rgb(100, 98, 98) , rgb(146, 142, 142), rgb(53, 54, 53));
+        }
+        
+        .card1:hover {
+            transform: scale(1.2);
+            transition: 0.6s;
+        }
+        
+        .card1:hover button {
+            display: inline-block;
+        }
+        
+        h1 {
+            text-shadow: 1px 1px 3px;
+            color: white;
+        }
+        
+        .title {
+            color: white;
+            padding-top: 15px;
+            text-transform: capitalize;
+        }
+        
+        .title i {
+            margin-right: 4px;
+            font-size: 24px;
+        }
+        
+        button {
+            border: none;
+            outline: 0;
+            display: none;
+            padding: 8px;
+            color: rgb(218, 200, 200);
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background-color: #000;
+            text-align: center;
+            text-transform: capitalize;
+            cursor: pointer;
+            border-radius: 3px;
+            
+            font-size: 14px;
+        }
+        
+        a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+        }
+        
+        button:hover, a:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    {% for i in a %}
+    <div class="card1"><br>
+        <h1>{{i.name}}</h1>
+        <p class="title"><i class="fa fa-envelope" style="font-size:24px"></i> Email: {{i.email}}</p>
+        <p class="title"><i class="fa fa-venus" style="font-size:24px"></i> Gender: {{i.gender}}</p>
+        <p class="title"><i class="fa fa-address-card-o" style="font-size:24px"></i> Address: {{i.address}}</p>
+        <p class="title"><i class="fa fa-graduation-cap" style="font-size:24px"></i> Qualification: {{i.qualification}}</p>
+        <p class="title"><i class="fa fa-history" style="font-size:24px"></i> Experience: {{i.experience}}</p><br>
+        <p>
+            <button><a href="/update_profile_staff" style="color: white;">Update Profile</a></button>
+            <button><a href="/admin_reset_password/" style="color: white;">Reset Password</a></button>
+        </p>
+    </div><br><br><br>
+    {% endfor %}
+</body>
+</html>
+{% endblock %}

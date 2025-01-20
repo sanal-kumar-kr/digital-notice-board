@@ -1,0 +1,64 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+<!-- breadcrum -->
+<section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container">
+       
+      </div>
+    </div>
+  </section>
+  <!-- //breadcrum -->
+  <!-- contact form -->
+  <section class="w3l-contacts-12" id="contact">
+      <div class="container py-5">
+          <div class="contacts12-main py-md-3">
+              <div class="header-section text-center">
+                  <h3 class="mb-md-5 mb-4">View Feedback
+              </div>
+
+    <table class="table table-hover table-bordered table-sm">
+        <thead>
+            <tr>
+
+                <th >Name</th>
+                <th >Email</th>
+                <th >Contact</th>
+                <th >Subject</th>
+                <th > Message</th>
+                {% if request.session.ut == 1%}
+                <th >Status</th>
+                <th >Action</th>
+                {% endif %}
+                {% if request.session.ut == 3%}
+                <th >Response</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+           
+            {% for i in a %}
+            <tr>
+                <td>{{i.uid.username}}</td>
+                <td>{{i.uid.email}}</td>
+                <td>{{i.uid.contact}}</td>
+                <td>{{i.subject}}</td>
+                <td>{{i.message}}</td>
+                {% if request.session.ut == 3%}
+                <td>{{i.response}}</td>
+                {% endif %}
+                {% if request.session.ut == 1%}
+                <td>{{i.status}}</td>
+                <td><a href="/feedback_response/{{i.id}}">Response</a></td>
+                {% endif %}
+            </tr>
+            {%endfor%}
+        
+        </tbody>
+    </table>
+</div>
+</div>
+</section>
+
+{%endblock%}

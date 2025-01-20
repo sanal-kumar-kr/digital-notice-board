@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <!-- Custom CSS for the card view -->
+  <style>
+    .semester-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      margin: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #f8f8f8;
+    }
+
+    .semester-card:hover {
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .label {
+      font-weight: bold;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .name {
+      font-size: 18px;
+      color: #333;
+      margin-left: 10px;
+    }
+
+    .action-buttons {
+      margin-top: 10px;
+    }
+
+    .search-form {
+      text-align: right;
+    }
+
+    .search-input {
+      width: 200px; /* Adjust the width as needed */
+      margin-right: 10px;
+    }
+  </style>
+
+  <!-- breadcrum -->
+  <section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container"></div>
+    </div>
+  </section>
+  <!-- //breadcrum -->
+  <!-- contact form -->
+  <section class="w3l-contacts-12" id="contact">
+    <div class="container py-5">
+      <div class="contacts12-main py-md-3">
+        <div class="header-section text-center">
+          <h3 class="mb-md-5 mb-4">View Semester Details</h3>
+        </div>
+
+        <!-- Start the for loop here -->
+        <div class="row">
+          {% for i in a %}
+          <div class="col-md-3">
+            <div class="semester-card">
+              <div class="label">Department Name:</div>
+              <span class="name">{{i.department}}</span>
+              <div class="label">Semester Name:</div>
+              <span class="name">{{i.semestername}}</span>
+              {% if request.session.ut == 1 %}
+              <div class="action-buttons">
+                <a href="/edit_semester/{{i.id}}" class="btn btn-primary">Edit</a>
+                <a href="/delete_semester/{{i.id}}" class="btn btn-danger" onclick="return confirm('Are You sure want to delete {{i.departmentname}} ?')">Delete</a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- End of card view -->
+
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+<!-- breadcrum -->
+<section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container">
+       
+      </div>
+    </div>
+  </section>
+  <!-- //breadcrum -->
+  <!-- contact form -->
+  <section class="w3l-contacts-12" id="contact">
+      <div class="container py-5">
+          <div class="contacts12-main py-md-3">
+              <div class="header-section text-center">
+                  <h3 class="mb-md-5 mb-4">Update Status
+              </div>
+
+              <table class="table table-hover table-bordered table-striped">
+                <thead class="thead-dark">
+            <tr>
+                <th scope="col"> Date</th>
+                <th > Title</th>
+                <th > Start Date</th>
+                <th > End Date</th>
+                <th > Status</th>
+                <th > Message</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+           
+            {% for i in b %}
+            <tr>
+                <td>{{i.date}}</td>
+                <td>{{i.title}}</td>
+                <td>{{i.start_date}}</td>
+                <td>{{i.end_date}}</td>
+                <td>{{i.update_status}}</td>
+                <td>{{i.message}}</td>
+            </tr>
+            {%endfor%}
+        
+        </tbody>
+    </table>
+</div>
+</div>
+</section>
+
+{%endblock%}

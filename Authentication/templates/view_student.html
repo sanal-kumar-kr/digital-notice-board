@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block content %}
+<head>
+    {% if y %}
+    <script>
+        alert("Registration Completed Successfully");
+    </script>
+    {% endif %}
+</head>
+<!-- breadcrumb -->
+<section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+        <div class="container">
+        </div>
+    </div>
+</section>
+<!-- //breadcrumb -->
+<!-- contact form -->
+<section class="w3l-contacts-12" id="contact">
+    <div class="container py-5">
+        <div class="contacts12-main py-md-3">
+            <div class="header-section text-center">
+                <h3 class="mb-md-5 mb-4">View Student Details</h3>
+            </div>
+            <div class="container search" style="display: flex; justify-content: flex-end;">
+                <form action="" method="GET">
+                  <input type="text" name="search" placeholder="search">
+                  <button type="submit" href="/">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </form>
+              </div><br>
+
+            <div class="">
+                <table class="table table-hover table-bordered table-striped ">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Register No</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">DOB</th>
+                            <th scope="col" class="text-center">Action</th>
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        {% for i in a %}
+                        <tr>
+                            <td>{{ i.regno }}</td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.gender }}</td>
+                            <td>{{ i.address }}</td>
+                            <td>{{ i.contact }}</td>
+                            <td>{{ i.email }}</td>
+                            <td>{{ i.department }}</td>
+                            <td>{{ i.semester }}</td>
+                            <td>{{ i.dob }}</td>    
+                            <td>
+                                <a href="/edit_student/{{ i.id }}" class="">Edit</a>
+                                <a href="/delete_student/{{ i.id }}" class="" onclick="return confirm('Are you sure you want to delete {{ i.name }}?')">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

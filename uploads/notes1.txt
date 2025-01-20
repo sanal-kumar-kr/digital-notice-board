@@ -1,0 +1,10 @@
+In today's world, we use computers for all our tasks. Our day-to-day activities: paying bills, buying groceries, using social media, seeking entertainment, working from home, communicating with a friend, etc., can all be done using a computer. So it is important not only to know how to use a computer, but also to understand the components of a computer and what they do.
+
+This topic explains all concepts related to computer in detail, from origin to end. The idea of computer literacy is also discussed, which includes the definition and functions of a computer. You learn about the components of a computer, the concept of hardware and software, representation of data/information, the concept of data processing and applications of IECT.
+
+What is a Computer?
+A computer is an electronic device that accepts data from the user, processes it, produces results, displays them to the users, and stores the results for future usage.
+
+Data is a collection of unorganized facts & figures and does not provide any further information regarding patterns, context, etc. Hence data means "unstructured facts and figures".
+
+Information is a structured data i.e. organized meaningful and processed data. To process the data and convert into information, a computer is used.

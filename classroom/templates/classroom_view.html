@@ -1,0 +1,63 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+<!-- breadcrum -->
+<section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container">
+       
+      </div>
+    </div>
+  </section>
+  <!-- //breadcrum -->
+  <!-- contact form -->
+  <section class="w3l-contacts-12" id="contact">
+      <div class="container py-5">
+          <div class="contacts12-main py-md-3">
+              <div class="header-section text-center">
+                  <h3 class="mb-md-5 mb-4">View ClassRoom
+              </div>
+              <div class="container search" style="display: flex;justify-content: flex-end; ">
+                <form action="" method="GET">
+                    <input type="text" name="search" placeholder="search">
+                    <button type="submit" href="/" >
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div><br>
+            <table class="table table-hover table-bordered table-striped">
+                <thead class="thead-dark">
+            <tr>
+
+                <th >Class Name</th>
+                <th >No of rows</th>
+                <th >No of columns</th>
+                <th >No of strength</th>
+             {% if request.session.ut == 1 %}
+                <th >Action</th>
+                {%endif%}
+
+            </tr>
+        </thead>
+        <tbody>
+           
+            {% for i in a %}
+            <tr>
+                <td>{{i.classname}}</td>
+                <td>{{i.seatrows}}</td>
+                <td>{{i.seatcolumns}}</td>
+                <td>{{i.strength}}</td>
+                {% if request.session.ut == 1 %}
+                <td><a href="/classroom_edit/{{i.id}}">Edit</a>
+                <a href="/classroom_delete/{{i.id}}">Delete</a></td>
+                {%endif%}
+            </tr>
+            {%endfor%}
+        
+        </tbody>
+    </table>
+</div>
+</div>
+</section>
+
+{%endblock%}

@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <head>
+    {% if k %}
+    <script>
+      alert("You should register before login");
+    </script>
+    {% endif %}
+    {% if b %}
+    <script>
+      alert("Password is incorrect");
+    </script>
+    {% endif %}
+  </head>
+  <!-- breadcrum -->
+  <section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container">
+        <p><a href="">Home</a> &nbsp; / &nbsp;Login</p>
+      </div>
+    </div>
+  </section>
+  <!-- //breadcrum -->
+  <!-- contact form -->
+  <section class="w3l-contacts-12" id="contact">
+    <div class="container py-5">
+      <div class="contacts12-main py-md-3">
+        <div class="header-section text-center">
+          <h3 class="mb-md-5 mb-4">Login Form</h3>
+        </div>
+        <form method="post" class="login-form">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="{{ form.username.id_for_label }}" class="form-label">Username:</label>
+            <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-input" style="width: 100%;" value="">
+          </div>
+          <div class="form-group">
+            <label for="{{ form.password.id_for_label }}" class="form-label">Password:</label>
+            <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" class="form-input" style="width: 100%;">
+          </div>
+          <div class="form-actions text-center">
+            <a href="/forgot_password" class="forgot-password-link">Forgot Password?</a>
+            <br>
+            <input type="submit" id="logsubmit" class="btn btn-primary theme-button" value="Submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <style>
+    /* Styling for the login form */
+    .login-form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .login-form h3 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .login-form .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .login-form .form-actions {
+      margin-top: 20px;
+    }
+
+    .forgot-password-link {
+      color: blueviolet;
+      text-decoration: none;
+    }
+
+    .forgot-password-link:hover {
+      text-decoration: underline;
+    }
+
+    .theme-button {
+      background-color: #007bff; /* Updated button color to blue */
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      display: block; /* Ensure the button takes full width */
+      width: 100%; /* Make the button take full width */
+      margin-top: 10px; /* Adjust margin for spacing */
+    }
+
+    .theme-button:hover {
+      background-color: #0056b3; /* Updated hover color */
+    }
+  </style>
+{% endblock %}

@@ -1,0 +1,584 @@
+def allot_student(request, id):
+    
+    cl = ClassAllotments.objects.all()
+    for i in cl:
+        k=i.exam
+        print(k)
+        exam = Exams.objects.get(id=k.id)
+        print("exam")
+        print(exam)
+        print("exam")
+        print(i.classroom)
+        print(i.classroom)
+        
+    print(exam.id)
+    student = Register.objects.filter(usertype="3")
+    print(student)
+    room = Classes.objects.all()
+    print(room)
+    row = 2
+    column = 2
+    date = Exams.objects.filter(date=exam.date)
+    print(date)
+    start_time = Exams.objects.get(start_time=exam.start_time)
+    print(start_time)
+    e = Exams.objects.filter(date=date,start_time=start_time)
+    print(e)
+    return render(request, 'seat_arrangement.html')
+
+    {% for i in a %}
+    {{i.name}}
+    {{i.email}}
+    {{i.gender}}
+    {{i.address}}
+    {{i.department}}
+    {%endfor%}
+
+    rcount=0
+    ccount=0
+    print(rcount)
+    print(ccount)
+    for x in range(len(sarr)):
+        random.shuffle(sarr[x])
+        
+    for x in range(row):
+        print(x)
+        for y in range(column):
+            print(y)
+            if rcount < len(sarr) and ccount < len(sarr[rcount]):
+                st_id = sarr[rcount][ccount]
+                eid = exarr[rcount]
+                Allot.objects.create(
+                st_id=st_id,
+                rid=rid,
+                eid=eid,
+                row=x + 1,
+                column=y + 1
+            )
+            # else:
+            #     if ccount < len(sarr[rcount]):
+            #         st_id = sarr[rcount][ccount]
+            #         eid = exarr[rcount]
+                        
+            #         Allot.objects.create(
+            #             st_id=st_id,
+            #             rid=rid,
+            #             eid=eid,
+            #             row=x + 1,
+            #             column=y + 1
+            #         )
+            #         rcount += 1 
+                # else:
+                #     ccount += 1  
+                #     if rcount < len(sarr) and ccount < len(sarr[rcount]):
+                #         st_id = sarr[rcount][ccount]
+                #         eid = exarr[rcount]
+                
+                #         Allot.objects.create(
+                #             st_id=st_id,
+                #             rid=rid,
+                #             eid=eid,
+                #             row=x + 1,
+                #             column=y + 1,
+                #         )   
+                <td>
+                    <span>Row: {{ i.row }}</span>
+                    <span>Column: {{ i.col }}</span>
+                    <table>
+                        <tr>
+                            <td colspan="{{ i.num_columns }}">Front</td>
+                        </tr>
+                        {% for k in range(i.num_rows) %}
+                            <tr>
+                                {% for j in range(i.num_columns) %}
+                                    <td>
+                                        {% ifequal k i.row-1 and j i.column-1 %}
+                                            <i class="fa fa-user-circle"></i>
+                                        {% else %}
+                                            <i class="fa fa-circle"></i>
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </td>
+
+
+                import random
+
+                def allot_student(request, id):
+                    try:
+                        class_allotment = ClassAllotments.objects.get(id=id)
+                        exam = class_allotment.exam
+                        exam_date = exam.date
+                        start_time = exam.start_time
+                        related_exams = Exams.objects.filter(date=exam_date, start_time=start_time).exclude(id=exam.id)
+                
+                        # Define row and column based on the current class_allotment or other source
+                        row = class_allotment.classroom.seatrows
+                        column = class_allotment.classroom.seatcolumns
+                
+                        for related_exam in related_exams:
+                            department = related_exam.department
+                            students = Register.objects.filter(department=department, usertype=3)
+                            students_list = list(students)
+                            random.shuffle(students_list)
+                            rcount = 0
+                            ccount = 0
+                
+                            # Loop through available classrooms
+                            classrooms = Classes.objects.filter(seatrows__gte=row, seatcolumns__gte=column).order_by('id')
+                            for classroom in classrooms:
+                                if rcount >= len(students_list):
+                                    break
+                
+                                # Check if the classroom's capacity is enough for the remaining students
+                                remaining_students = len(students_list) - rcount
+                                if remaining_students > (classroom.seatrows * classroom.seatcolumns - ccount):
+                                    continue
+                
+                                for x in range(classroom.seatrows):
+                                    for y in range(classroom.seatcolumns):
+                                        if rcount < len(students_list):
+                                            student = students_list[rcount]
+                                            allotment = Allot.objects.create(
+                                                classroom=class_allotment,
+                                                exam=related_exam,
+                                                row=x + 1,
+                                                column=y + 1,
+                                            )
+                                            allotment.student.add(student)
+                                            allotment.save()
+                                            ccount += 1
+                                            rcount += 1
+                                            class_allotment.status = "1"
+                                            class_allotment.save()
+                                        else:
+                                            break
+                
+                        return redirect('/classallotment_view')
+                    except ClassAllotments.DoesNotExist:
+                        return render(request, 'class_allotment_not_found.html')
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Table Example</title>
+                            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+                        </head>
+                        <body>
+                            <table>
+                                <tr>
+                                    <td colspan={{ numCols }}>Front</td>
+                                </tr>
+                                {% set i = 0 %}
+                                {% while i < numRows %}
+                                    <tr>
+                                        {% set j = 0 %}
+                                        {% while j < numCols %}
+                                            <td>
+                                                {% if i+1 == allots['row'] and j+1 == allots['col'] %}
+                                                    <i class="fa fa-user-circle"></i>
+                                                {% else %}
+                                                    <i class="fa fa-circle"></i>
+                                                {% endif %}
+                                            </td>
+                                            {% set j = j + 1 %}
+                                        {% endwhile %}
+                                    </tr>
+                                    {% set i = i + 1 %}
+                                {% endwhile %}
+                            </table>
+                        </body>
+                        </html>
+                        from django.db import IntegrityError
+
+def allot_student(request, id):
+    try:
+        class_allotment = ClassAllotments.objects.get(id=id)
+        exam = class_allotment.exam
+        # ... (other code)
+
+        rcount = 0
+        ccount = 0
+
+        for x in range(row):
+            for y in range(column):
+                if rcount < len(students):
+                    student = students[rcount]
+                    allotment = Allot.objects.create(
+                        classroom=class_allotment,
+                        exam=exam,
+                        row=x + 1,
+                        column=y + 1,
+                    )
+                    try:
+                        allotment.student.add(student)
+                        allotment.save()
+                        ccount += 1
+                        rcount += 1
+                        class_allotment.status = "1"
+                        class_allotment.save()
+                    except IntegrityError:
+                        # Handle IntegrityError (e.g., duplicate entry) as needed
+                        pass
+                else:
+                    break
+
+        return redirect('/classallotment_view')
+    except ClassAllotments.DoesNotExist:
+        return render(request, 'class_allotment_not_found.html')
+
+        from django.shortcuts import render
+        from django.http import HttpResponse
+        from .models import AllotStudent, Exam, Room, User  # Import your Django models
+        
+        def allotment_view(request, id, rid):
+            if AllotStudent.objects.filter(exam_id=id, room_id=rid).exists():
+                return HttpResponse("Already allotted")
+            else:
+                rid = int(rid)
+                id = int(id)
+                rres = Room.objects.get(id=rid)
+                rows = int(rres.num_rows)
+                col = int(rres.num_columns)
+                sres = Exam.objects.get(id=id)
+                q1 = User.objects.filter(course=sres.class_id).exclude(
+                    reg_no__in=AllotStudent.objects.filter(exam_id=id).values("st_id")
+                )
+                sarr = [[] for _ in range(q1.count())]
+                exArr = [row.exam_id for row in Allot.objects.filter(
+                    room_type_id=rid, exam_id__in=Exam.objects.filter(
+                        exam_date=sres.exam_date, start_time=sres.start_time
+                    )
+                )]
+                rcount = 0
+                ccount = 0
+                for index, row in enumerate(q1):
+                    sarr[index].append(row.reg_no)
+                for x in range(rows):
+                    for y in range(col):
+                        if len(sarr) > rcount:
+                            if len(sarr[rcount]) > ccount:
+                                insqry = AllotStudent(
+                                    st_id=sarr[rcount][ccount],
+                                    room_id=rid,
+                                    exam_id=exArr[rcount],
+                                    row=(x + 1),
+                                    col=(y + 1),
+                                )
+                                insqry.save()
+                                rcount += 1
+                            else:
+                                rcount = 0
+                                ccount += 1
+                                if len(sarr[rcount]) > ccount:
+                                    insqry = AllotStudent(
+                                        st_id=sarr[rcount][ccount],
+                                        room_id=rid,
+                                        exam_id=exArr[rcount],
+                                        row=(x + 1),
+                                        col=(y + 1),
+                                    )
+                                    insqry.save()
+                                    rcount += 1
+            vqry = AllotStudent.objects.filter(exam_id=id, room_id=rid)
+            return render(
+                request,
+                "allotment_template.html",
+                {"allotment_data": vqry, "id": id, "rid": rid},
+            )
+        
+            exam=Exams.objects.get(examname=ac[rcount])
+
+
+
+            def allot_seats(request, id):
+    try:
+        class_allotment = ClassAllotments.objects.get(id=id)
+        exam = class_allotment.exam
+        print(exam)
+        rid = class_allotment.classroom.id
+        classroom = Classes.objects.get(id=rid)
+        print(classroom)
+        row = classroom.seatrows
+        column = classroom.seatcolumns
+        cl = rid
+        print(cl)
+        abab = class_allotment.exam.date
+        ababc = class_allotment.exam.start_time
+        print(abab)
+        print(ababc)
+        
+        # Get all ClassAllotments for the same classroom and exam date
+        ex = ClassAllotments.objects.filter(classroom=classroom, exam__date=abab, exam__start_time=ababc)
+        print(ex)
+        
+        std = []
+        ac = []
+        for i in ex:
+            print(len(ex))
+            aaa = i.department
+            print(aaa)
+            print("^^^^^^^^^^^^")
+            bbb = Register.objects.filter(department=aaa, usertype=3)
+            print(bbb)
+            print(len(bbb))
+            for student in bbb:
+                std.append(student)
+            student_exam = Exams.objects.filter(department=aaa, date=abab, start_time=ababc)
+            for i in student_exam:
+                ab = i.examname
+                ac.append(ab)
+                print(ac)
+                print(ab)
+                print("*************")
+                
+        print(555555555555)
+        print(ac)
+        print(111111111111111)
+        print(std)
+        students = list(std)
+        print(students)
+        random.shuffle(students)
+        print(len(students))
+        rcount = 0
+        ccount = 0
+        print(ac)
+        
+        for x in range(row):
+            for y in range(column):
+                print(rcount)
+                print(len(students))
+                print(22222222222222222222222222222222222)
+                if rcount < len(students) and rcount < len(ac):
+                    print(students)
+                    student = students[rcount]
+                    print(student)
+                    
+                    # Create Allot object for the current student and exam
+                    allotment = Allot.objects.create(
+                        classroom=class_allotment,
+                        exam=Exams.objects.get(examname=ac[rcount]),
+                        row=x + 1,
+                        column=y + 1,
+                    )
+                    print(allotment)
+                    allotment.student.add(student)
+                    allotment.save()
+                    ccount += 1
+                    print(ccount)
+                    rcount += 1
+                    print(rcount)
+                    class_allotment.status = "1"
+                    class_allotment.save()
+                else:
+                    break
+
+        return redirect('/classallotment_view')
+    except ClassAllotments.DoesNotExist:
+        return render(request, 'class_allotment_not_found.html')
+
+        def allot_seats(request, id):
+    
+        try:
+            class_allotment = ClassAllotments.objects.get(id=id)
+            exam = class_allotment.exam
+            print(exam)
+            rid = class_allotment.classroom.id
+            classroom = Classes.objects.get(id=rid)
+            print(classroom)
+            row = classroom.seatrows
+            column = classroom.seatcolumns
+            cl = rid
+            print(cl)
+            abab = class_allotment.exam.date
+            ababc = class_allotment.exam.start_time
+            print(abab)
+            print(ababc)
+            ex = ClassAllotments.objects.filter(classroom=classroom, exam__date=abab, exam__start_time=ababc)
+            print(ex)
+            std = []
+            for i in ex:
+                aaa = i.department
+                print(aaa)
+                print("^^^^^^^^^^^^")
+                bbb = Register.objects.filter(department=aaa, usertype=3)
+                print(bbb)
+                for student in bbb:
+                    std.append(student)
+    
+            print(111111111111111)
+            print(std)
+            students = list(std)
+            print(students)
+            random.shuffle(students)
+            print(len(students))
+    
+            rcount = 0
+            ccount = 0
+    
+            print("&&&&&&&&&&&&&")
+            for x in range(row):
+                for y in range(column):
+                    print(rcount)
+                    print(len(students))
+                    print(22222222222222222222222222222222222)
+                    if rcount < len(students):
+                        print(students)
+                        student = students[rcount]
+                        print(student)
+                        student_exam = Exams.objects.get(department=student.department, date=abab, start_time=ababc)
+                        print(student_exam)
+                        print("*************")
+                        allotment = Allot.objects.create(
+                            classroom=class_allotment,
+                            exam=student_exam,
+                            row=x + 1,
+                            column=y + 1,
+                        )
+                        print(allotment)
+                        allotment.student.add(student)
+                        allotment.save()
+                        ccount += 1
+                        print(ccount)
+                        rcount += 1
+                        print(rcount)
+                        class_allotment.status = "1"
+                        class_allotment.save()
+                    else:
+                        break
+    
+            return redirect('/classallotment_view')
+        except ClassAllotments.DoesNotExist:
+            return render(request, 'classallotment_view.html',{'g':True})
+
+
+
+
+
+@login_required(login_url='/login')
+def allot_seats(request, id):
+    try:
+        class_allotment = ClassAllotments.objects.get(id=id)
+        exam = class_allotment.exam
+        print(exam)
+        rid = class_allotment.classroom.id
+        classroom = Classes.objects.get(id=rid)
+        print(classroom)
+        row = classroom.seatrows
+        column = classroom.seatcolumns
+        cl = rid
+        print(cl)
+        abab = class_allotment.exam.date
+        ababc = class_allotment.exam.start_time
+        print(abab)
+        print(ababc)
+        ex = ClassAllotments.objects.filter(classroom=classroom, exam__date=abab, exam__start_time=ababc)
+        print(ex)
+        department_students = defaultdict(list)
+        print(department_students)
+        print("department_students")
+        for i in ex:
+            aaa = i.department
+            print(aaa)
+            print("^^^^^^^^^^^^")
+            bbb = Register.objects.filter(department=aaa, usertype=3)
+            print(bbb)
+            for student in bbb:
+                department_students[aaa].append(student)
+                
+        print(111111111111111)
+        print(department_students)
+        print("rows")
+        
+        # Shuffle students in each department
+        for department, students in department_students.items():
+            shuffle(students)
+            
+        ccount = 0
+        print("&&&&&&&&&&&&&")
+        
+        for x in range(row):
+            for y in range(column):
+                department = list(department_students.keys())[ccount % len(department_students)]
+                students = department_students[department]
+                print(students)
+                print("students")
+                if students:
+                    student = students.pop(0)
+                    print(students)
+                    print(student)
+                    student_exam = Exams.objects.get(department=student.department, date=abab, start_time=ababc)
+                    print(student_exam)
+                    print("*************")
+                    allotment = Allot.objects.create(
+                        classroom=class_allotment,
+                        exam=student_exam,
+                        row=x + 1,
+                        column=y + 1,
+                    )
+                    print(allotment)
+                    allotment.student.add(student)
+                    allotment.save()
+                    ccount += 1
+                else:
+                    break  # Break if the current department's students are exhausted
+        
+        # Continue allocating students from remaining departments
+        while ccount < (row * column):
+            for department, students in department_students.items():
+                if students:
+                    student = students.pop(0)
+                    print(students)
+                    print(student)
+                    student_exam = Exams.objects.get(department=student.department, date=abab, start_time=ababc)
+                    print(student_exam)
+                    print("*************")
+                    allotment = Allot.objects.create(
+                        classroom=class_allotment,
+                        exam=student_exam,
+                        row=(ccount // column) + 1,
+                        column=(ccount % column) + 1,
+                    )
+                    print(allotment)
+                    allotment.student.add(student)
+                    allotment.save()
+                    ccount += 1
+                
+        ClassAllotments.objects.filter(classroom=classroom, exam__date=abab, exam__start_time=ababc).update(status=1)
+        return redirect('/classallotment_view')
+    
+    except ClassAllotments.DoesNotExist:
+        return render(request, 'classallotment_view.html', {'g': True})
+
+
+        @login_required(login_url='/login')
+def delete_classallotment(request,id):
+    data = ClassAllotments.objects.get(id=id)
+    staffid=data.staff.id
+    b=Register.objects.get(id=staffid)
+    b.examstatus=0
+    b.save()
+    k=data.classroom
+    u=Classes.objects.get(id=k.id)
+    print(u)
+    l=u.id
+    print(l)
+    print(k.id)
+    j=ClassAllotments.objects.filter(classroom=k.id)
+    print(j)
+    for i in j:
+        o=i.classroom
+        print(o)
+        print(i.status)
+        if i.status == 1:
+            h = ClassAllotments.objects.filter(classroom=o.id)
+            h.delete()
+            return redirect('/classallotment_view')
+        else:
+            data.delete()
+            return redirect('/classallotment_view')

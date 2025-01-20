@@ -1,0 +1,65 @@
+{%extends 'layout.html'%}
+{%block content%}
+
+<!-- breadcrum -->
+<section class="w3l-skill-breadcrum">
+    <div class="breadcrum">
+      <div class="container">
+       
+      </div>
+    </div>
+  </section>
+  <!-- //breadcrum -->
+  <!-- contact form -->
+  <section class="w3l-contacts-12" id="contact">
+      <div class="container py-5">
+          <div class="contacts12-main py-md-3">
+              <div class="header-section text-center">
+                  <h3 class="mb-md-5 mb-4">Update Status
+              </div>
+
+              <table class="table table-hover table-bordered table-striped">
+                <thead class="thead-dark">
+            <tr>
+                <th >Title</th>
+                <th > Description</th>
+                <th >Status</th>
+                <th >Message</th>
+                <th >Files</th>
+                <th >Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+           
+            {% for i in b %}
+            <tr>
+                <td>{{i.title}}</td>
+                <td>{{i.description}}</td>
+                {% if i.update_status%}
+                <td>{{i.update_status}}</td>
+                {%else%}
+                <td>Not Updated</td>
+                {%endif%}
+                {% if i.message %}
+                <td>{{i.message}}</td>
+                {%else%}
+                <td>Not Updated</td>
+                {%endif%}
+                {% if i.files %}
+                <td><a href="{{i.files.url}}">{{i.files}}</a></td>
+                {%else%}
+                <td>No file uploaded</td>
+                {%endif%}
+                <td><a href="/edit_status/{{i.id}}">Edit</a>
+                <a href="/delete_status/{{i.id}}">Delete</a></td>
+            </tr>
+            {%endfor%}
+        
+        </tbody>
+    </table>
+</div>
+</div>
+</section>
+
+{%endblock%}
